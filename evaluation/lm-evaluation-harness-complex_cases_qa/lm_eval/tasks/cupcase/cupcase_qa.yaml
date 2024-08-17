@@ -1,0 +1,23 @@
+dataset_path: arrow
+dataset_name: null
+task: cupcase_qa
+validation_split: null
+output_type: multiple_choice
+test_split: test
+description: "Predict the diagnosis of this case presentation of a patient.\n"
+doc_to_text: "Case presentation:\n{{clean_case_presentation}}\nDiagnosis:"
+doc_to_target: correct_diagnosis
+doc_to_choice: "{{[distractor4, distractor2, distractor3, correct_diagnosis]}}"
+process_docs: !function utils.process_docs
+
+metric_list:
+  - metric: acc_norm
+    aggregation: mean
+    higher_is_better: true
+  - metric: acc
+    aggregation: mean
+    higher_is_better: true
+
+dataset_kwargs:
+  data_files:
+    test: data-00000-of-00001.arrow
