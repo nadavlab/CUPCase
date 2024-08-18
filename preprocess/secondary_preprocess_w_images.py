@@ -21,7 +21,7 @@ if not api_key:
 client = OpenAI(api_key=api_key)
 
 # Load the CSV file
-df = pd.read_excel('Processed_Case_Reports_w_images.xlsx')
+df = pd.read_excel('dataset/Processed_Case_Reports_w_images.xlsx')
 
 
 # Function to call OpenAI API with gpt-4-turbo
@@ -106,7 +106,7 @@ with concurrent.futures.ThreadPoolExecutor(max_workers=max_workers) as executor:
         # Save checkpoint every 'checkpoint_interval' iterations
         if (i + 1) % checkpoint_interval == 0:
             checkpoint_df = pd.DataFrame(results)
-            checkpoint_filename = f'Second_Process_Case_Reports_checkpoint_{i + 1}.csv'
+            checkpoint_filename = f'output/Second_Process_Case_Reports_checkpoint_{i + 1}.csv'
             checkpoint_df.to_csv(checkpoint_filename, index=False, encoding='utf-8')
             logging.info(f"Checkpoint saved to '{checkpoint_filename}'.")
 
@@ -117,6 +117,6 @@ results_df = pd.DataFrame(results)
 results_df['Image Filenames'] = df['Image Filenames']
 
 # Save final results to a new Excel file with UTF-8 encoding
-results_df.to_excel('Second_Processed_Case_Reports_w_images.xlsx', index=False)
+results_df.to_excel('output/Second_Processed_Case_Reports_w_images.xlsx', index=False)
 
 logging.info("Processing complete. Results saved to 'Processed_Case_Reports_w_images.xlsx'.")

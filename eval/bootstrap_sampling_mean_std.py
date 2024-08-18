@@ -1,10 +1,10 @@
 import pandas as pd
 import numpy as np
 
-gpt_qa = pd.read_csv('gpt4_multiple_choice_batched.csv')
-gpt_free = pd.read_csv('gpt4_free_text_batched.csv')
-medlm_qa = pd.read_csv('qa_medlm_large.csv')
-medlm_free = pd.read_csv('free_text_medlm_large.csv')
+gpt_qa = pd.read_csv('dataset/gpt4_multiple_choice_batched.csv')
+gpt_free = pd.read_csv('dataset/gpt4_free_text_batched.csv')
+medlm_qa = pd.read_csv('dataset/qa_medlm_large.csv')
+medlm_free = pd.read_csv('dataset/free_text_medlm_large.csv')
 
 def calc_qa(df):
     # convert true false to numbers

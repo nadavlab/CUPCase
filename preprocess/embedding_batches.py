@@ -10,7 +10,7 @@ cos_sim = lambda a, b: (a @ b.T) / (norm(a) * norm(b))
 model = AutoModel.from_pretrained('jinaai/jina-embeddings-v2-base-en', trust_remote_code=True)  # trust_remote_code is needed to use the encode method
 
 # Embedding function with batching
-def batch_encode(texts, model, batch_size=100000):
+def batch_encode(texts, model, batch_size=1024):
     embeddings = []
     for i in tqdm(range(0, len(texts), batch_size)):
         batch = texts[i:i+batch_size]
@@ -18,7 +18,7 @@ def batch_encode(texts, model, batch_size=100000):
     return embeddings
 
 # Embedding final diagnoses
-case_reports_df = pd.read_excel('Second_Processed_Case_Reports_w_images_clean.csv')
+case_reports_df = pd.read_excel('dataset/Second_Processed_Case_Reports_w_images_clean.csv')
 final_diagnoses = case_reports_df['final diagnosis'].tolist()
 case_reports_df['embedding'] = batch_encode(final_diagnoses, model)
 
@@ -32,8 +32,8 @@ icd_df['embedding'] = batch_encode(icd_descriptions, model)
 print("Added embedding to icd-10-cm")
 
 # Save the embeddings
-case_reports_df.to_excel('case_reports_embedded_w_images.xlsx', index=False)
-icd_df.to_csv('icd_10_cm_embedded.csv', encoding="utf-8")
+case_reports_df.to_excel('output/case_reports_embedded_w_images.xlsx', index=False)
+icd_df.to_csv('output/icd_10_cm_embedded.csv', encoding="utf-8")
 
 # Finding top 5 closest diagnoses
 results = []
@@ -67,4 +67,4 @@ case_reports_df = case_reports_df.merge(results_df[['case_report_idx', 'top_5_ic
                                         right_on='case_report_idx', how='left')
 
 # Save the updated case reports dataframe to a CSV file
-case_reports_df.to_csv('case_reports_with_top_5_similar_icd_texts.csv', index=False)
+case_reports_df.to_csv('output/case_reports_with_top_5_similar_icd_texts.csv', index=False)
