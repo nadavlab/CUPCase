@@ -1,0 +1,28 @@
+dataset_path: arrow
+dataset_name: null
+task: cupcase_generation
+validation_split: null
+output_type: generate_until
+generation_kwargs:
+  until:
+    - "<|eot_id|>"
+    - "."
+  do_sample: false
+  temperature: 0.0
+
+test_split: test
+#description: "Predict the diagnosis of this case presentation of a patient. For example:<diagnosis name here>\n"
+description: "Predict the diagnosis of this case presentation of a patient. Return the final diagnosis in one concise sentence without any further elaboration.\nFor example:<diagnosis name here>\n"
+doc_to_text: "Case presentation:\n{{clean_case_presentation}}\nDiagnosis:"
+doc_to_target: correct_diagnosis
+#process_results: !function utils.process_results
+process_docs: !function utils.process_docs
+
+metric_list:
+  - metric: !function utils.bert_score
+    higher_is_better: true
+    aggregation: !function utils.agg_bert_score
+
+dataset_kwargs:
+  data_files:
+    test: data-00000-of-00001.arrow
