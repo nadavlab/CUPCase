@@ -3,7 +3,7 @@ from transformers import AutoTokenizer
 
 # Read the CSV file
 df = pd.read_csv('Case_report_w_images_dis_VF.csv')
-cache_folder = "/sise/nadav-group/nadavrap-group/ofir/hf_cache/models--meta-llama--Meta-Llama-3-8B/snapshots/1460c22666392e470910ce3d44ffeb2ab7dbd4df"
+cache_folder = "path to model cache"
 tokenizer = AutoTokenizer.from_pretrained(cache_folder)
 
 def truncate_text_by_tokens(text, percentage, tokenizer):
