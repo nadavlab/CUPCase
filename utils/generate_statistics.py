@@ -3,7 +3,7 @@ import numpy as np
 from transformers import AutoTokenizer
 
 # Load the LLaMA-3-8B tokenizer from the Hugging Face cache folder
-cache_folder = "/sise/nadav-group/nadavrap-group/ofir/hf_cache/models--meta-llama--Meta-Llama-3-8B/snapshots/1460c22666392e470910ce3d44ffeb2ab7dbd4df"
+cache_folder = "path to model cache"
 tokenizer = AutoTokenizer.from_pretrained(cache_folder)
 
 # Read the CSV file
