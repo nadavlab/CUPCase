@@ -3,8 +3,8 @@ from transformers import AutoTokenizer
 
 # Read the CSV file
 df = pd.read_csv('Case_report_w_images_dis_VF.csv')
-cache_folder = "path to model cache"
-tokenizer = AutoTokenizer.from_pretrained(cache_folder)
+
+tokenizer = AutoTokenizer.from_pretrained("meta-llama/Meta-Llama-3-8B")
 
 def truncate_text_by_tokens(text, percentage, tokenizer):
     tokens = tokenizer.tokenize(text)

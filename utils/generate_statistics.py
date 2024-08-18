@@ -2,9 +2,8 @@ import pandas as pd
 import numpy as np
 from transformers import AutoTokenizer
 
-# Load the LLaMA-3-8B tokenizer from the Hugging Face cache folder
-cache_folder = "path to model cache"
-tokenizer = AutoTokenizer.from_pretrained(cache_folder)
+
+tokenizer = AutoTokenizer.from_pretrained("meta-llama/Meta-Llama-3-8B")
 
 # Read the CSV file
 df = pd.read_csv('Case_report_w_images_dis_VF.csv')
